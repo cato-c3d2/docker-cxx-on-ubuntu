@@ -6,13 +6,35 @@
     + Windows 11 Pro
     + Docker Desktop version 4.9.0 (80466)
 
-### Docker イメージを構築する
+### Docker Compose を使用する場合
+
+#### コンテナを構築、作成、起動、アタッチする
+
+```
+docker-compose up --detach --build
+```
+
+#### Docker コンテナ上で実行中の Ubuntu にログインする
+
+```
+docker exec -it docker-cxx-on-ubuntu-ubuntu-1 "/bin/bash"
+```
+
+#### コンテナを停止し、 `docker-compose up` で作成したコンテナ、ネットワーク、ボリューム、イメージを削除する
+
+```
+docker-compose down
+```
+
+### Docker Compose を使用しない場合
+
+#### Docker イメージを構築する
 
 ```
 docker build --tag docker-cxx-on-ubuntu .
 ```
 
-### Docker コンテナを起動する
+#### Docker コンテナを起動する
 
 ```
 docker run -it --detach --mount "type=bind,src=$(pwd),target=/opt/docker-cxx-on-ubuntu" --name docker_cxx_on_ubuntu docker-cxx-on-ubuntu
@@ -26,13 +48,13 @@ docker run -it --detach --mount "type=bind,src=$(pwd),target=/opt/docker-cxx-on-
   > docker: Error response from daemon: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "--mount": executable file not found in $PATH: unknown.
   > ```
 
-### Docker コンテナ上で実行中の Ubuntu にログインする
+#### Docker コンテナ上で実行中の Ubuntu にログインする
 
 ```
 docker exec -it docker_cxx_on_ubuntu "/bin/bash"
 ```
 
-### Docker コンテナを停止する
+#### Docker コンテナを停止する
 
 ```
 docker rm -f docker_cxx_on_ubuntu
