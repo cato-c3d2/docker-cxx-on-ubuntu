@@ -1,10 +1,46 @@
-# docker-cxx-on-ubuntu
+# Docker C++ on Ubuntu
+
+## 環境
+
+### 動作確認環境
+
+  + Windows 11 Pro バージョン 22H2
+  + Docker :
+
+```
+PS C:\Work\Space\docker-cxx-on-ubuntu> docker version
+Client:
+ Cloud integration: v1.0.35+desktop.4
+ Version:           24.0.6
+ API version:       1.43
+ Go version:        go1.20.7
+ Git commit:        ed223bc
+ Built:             Mon Sep  4 12:32:48 2023
+ OS/Arch:           windows/amd64
+ Context:           default
+
+Server: Docker Desktop 4.23.0 (120376)
+ Engine:
+  Version:          24.0.6
+  API version:      1.43 (minimum version 1.12)
+  Go version:       go1.20.7
+  Git commit:       1a79695
+  Built:            Mon Sep  4 12:32:16 2023
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          1.6.22
+  GitCommit:        8165feabfdfe38c65b599c4993d227328c231fca
+ runc:
+  Version:          1.1.8
+  GitCommit:        v1.1.8-0-g82f18fe
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+PS C:\Work\Space\docker-cxx-on-ubuntu>
+```
 
 ## 使用方法
-
-  + 動作確認環境
-    + Windows 11 Pro
-    + Docker Desktop version 4.9.0 (80466)
 
 ### Docker Compose を使用する場合
 
@@ -37,10 +73,10 @@ docker build --tag docker-cxx-on-ubuntu .
 #### Docker コンテナを起動する
 
 ```
-docker run -it --detach --mount "type=bind,src=$(pwd),target=/opt/docker-cxx-on-ubuntu" --name docker_cxx_on_ubuntu docker-cxx-on-ubuntu
+docker run -it --detach --name docker_cxx_on_ubuntu --mount "type=bind,src=$(pwd),target=/opt/docker-cxx-on-ubuntu" docker-cxx-on-ubuntu
 ```
 
-  > `--mount` オプションを `--name` オプションの前に記述しないとエラーが発生する点に注意！
+  > 起動する Docker コンテナの指定を最後（オプションの前）に記述しないとエラーが発生する点に注意！
   >
   > + エラーメッセージ :
   >
@@ -60,9 +96,9 @@ docker exec -it docker_cxx_on_ubuntu "/bin/bash"
 docker rm -f docker_cxx_on_ubuntu
 ```
 
-### その他
+### C++ のコンパイルと実行
 
-  + (例) Ubuntu にログインし、 C++ のソースコードをコンパイルし、コンパイルされた実行ファイルを実行する
+  + Ubuntu にログインし、 C++ のソースコードをコンパイルし、コンパイルされた実行ファイルを実行する例 :
 
 ```
 PS C:\Work\Space\docker-cxx-on-ubuntu> docker exec -it docker_cxx_on_ubuntu "/bin/bash"
